@@ -70,7 +70,7 @@ def make_bigwig_list(bigwigs, region, condition_order, bw_bins=1600, track_heigh
     """
     assert len(bigwigs) % len(condition_order) == 0
     bigwig_list = [BigWig(bigwig, number_of_bins=bw_bins) + Title(title) \
-                   + TrackHeight(2) for bigwig, title in zip(bigwigs, condition_order)]
+                   + TrackHeight(track_height) for bigwig, title in zip(bigwigs, condition_order)]
     if autoscale:
         bigwig_list = auto_scale_bigwigs(bigwig_list, region, y_max=y_max)
     return bigwig_list

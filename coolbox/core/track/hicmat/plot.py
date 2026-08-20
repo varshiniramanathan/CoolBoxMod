@@ -9,7 +9,8 @@ from matplotlib.colors import LinearSegmentedColormap
 from mpl_toolkits.axes_grid1.axes_divider import make_axes_locatable
 
 from coolbox.utilities import get_logger, GenomeRange
-
+from matplotlib.ticker import (FormatStrFormatter, EngFormatter, MultipleLocator, FormatStrFormatter,
+                               LogFormatter, LogFormatterSciNotation,FuncFormatter, LogLocator)
 log = get_logger(__name__)
 
 JuiceBoxLikeColor = LinearSegmentedColormap.from_list(
@@ -38,6 +39,35 @@ class PlotHiCMat(object):
 
     def plot_matrix(self, gr: GenomeRange, gr2: GenomeRange = None):
         gr = GenomeRange(gr)
+
+        def format_ticks(ax, x=True, y=False, rotate=True, chrom=None):
+            bp_formatter = EngFormatter('b')
+            if y:
+                ax.yaxis.set_major_formatter(bp_formatter)
+            else:
+                ax.set_yticks([])
+            if x:
+                xmin, xmax = ax.get_xlim()
+                ticks = ax.get_xticks()
+
+                # find first tick that is actually inside the visible range
+                visible_ticks = [t for t in ticks if xmin <= t <= xmax]
+                first_visible = visible_ticks[0] if visible_ticks else None
+
+                def formatter(val, pos):
+                    if first_visible is not None and abs(val - first_visible) < 1e-6:
+                        return ""
+                    return bp_formatter(val)
+
+                ax.xaxis.set_major_formatter(FuncFormatter(formatter))
+                ax.xaxis.tick_bottom()
+
+                if chrom is not None:
+                    ax.text(
+                    0, -0.01, chrom,
+                    transform=ax.transAxes,
+                    ha='left',
+                    va='top')
 
         def get_cmap(color: str):
             cm = color
@@ -101,7 +131,10 @@ class PlotHiCMat(object):
             img = ax.matshow(arr, cmap=cmap,
                              extent=(gr.start, gr.end, gr2.end, gr2.start),
                              aspect=aspect)
-
+            self.ax.axis[:].set_visible(True)
+            format_ticks(self.ax, rotate=False, chrom=gr.chrom)
+            self.ax.axis[:].major_ticklabels.set()
+            
         if self.norm == 'log':
             img.set_norm(colors.LogNorm(vmin=c_min, vmax=c_max))
         else:
