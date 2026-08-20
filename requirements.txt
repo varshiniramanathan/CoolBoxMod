@@ -15,3 +15,6 @@ cooler
 numpydoc
 fire
 oxbow>=0.4.2
+seaborn
+bioframe
+cooltools @ git+https://github.com/open2c/cooltools
