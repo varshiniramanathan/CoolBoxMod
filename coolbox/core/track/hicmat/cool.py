@@ -44,7 +44,24 @@ class Cool(HicMatBase):
 
         self.fetched_binsize = wrap.fetched_binsize  # expose fetched binsize
 
-        return self.fill_zero_nan(arr)
+        ## SUPPORT TWO COOLS ON TOP AND BOTTOM: VR ADDTION
+        if self.properties['file_bottom'] is not None:  # two matrices to be plotted in upper and lower columns
+            path2 = self.properties['file_bottom']
+            wrap2 = CoolerWrap(path2, balance=self.balance, binsize=binsize)
+            arr2 = wrap2.fetch(gr, gr2)
+
+            combined_arr = np.zeros_like(arr2)
+
+            # fill in the bottom half with arr2 and the top half with arr1
+            upper_ind = np.triu_indices(np.shape(arr2)[0])
+            lower_ind = np.tril_indices(np.shape(arr2)[0])
+
+            combined_arr[lower_ind] = arr2[lower_ind]
+            combined_arr[upper_ind] = arr[upper_ind]
+
+            return self.fill_zero_nan(combined_arr)
+        else:
+            return self.fill_zero_nan(arr)
 
     def fetch_pixels(self, gr: GenomeRange, gr2=None, **kwargs):
         """

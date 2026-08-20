@@ -167,6 +167,7 @@ class PlotHiCMat(object):
                 tick_values = np.concatenate([aa * 10 ** x for x in range(lower_, upper_)])
 
                 c_bar = plt.colorbar(img, ax=y_ax, ticks=tick_values, format=formatter, fraction=0.98)
+
             else:
                 c_bar = plt.colorbar(img, ax=y_ax, fraction=0.98)
 
