@@ -64,7 +64,7 @@ def auto_scale_bigwigs(bigwig_list, region, y_max=None, y_min=0):
 
 
 def make_bigwig_list(bigwigs, region, condition_order, bw_bins=1600, track_height=2, autoscale=True,
-                     y_max=None):
+                     y_max=None, **kwargs):
     """
     Helper function for `make_region_plot` that converts file paths to bigwig plotting objects.
     """
