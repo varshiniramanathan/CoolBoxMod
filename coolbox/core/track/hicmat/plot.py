@@ -61,7 +61,6 @@ class PlotHiCMat(object):
 
                 ax.xaxis.set_major_formatter(FuncFormatter(formatter))
                 ax.xaxis.tick_bottom()
-
                 if chrom is not None:
                     ax.text(
                     0, -0.01, chrom,
@@ -184,7 +183,9 @@ class PlotHiCMat(object):
 
             if self.norm == 'log':
                 from matplotlib.ticker import LogFormatter
-                formatter = LogFormatter(10, labelOnlyBase=False)
+                formatter = LogFormatter(10, labelOnlyBase=True)
+
+                locator = LogLocator(base=10)
                 aa = np.array([1, 2, 5])
                 c_min, c_max = self.matrix_val_range
 
@@ -199,14 +200,15 @@ class PlotHiCMat(object):
                 upper_ = abs_inc(int(np.log10(c_max)))
                 tick_values = np.concatenate([aa * 10 ** x for x in range(lower_, upper_)])
 
-                c_bar = plt.colorbar(img, ax=y_ax, ticks=tick_values, format=formatter, fraction=0.98)
-
+                cbar_frac = self.properties['cbar_fraction']
+                cbar_asp = self.properties['cbar_aspect']
+                c_bar = plt.colorbar(img, ticks=tick_values, ax=y_ax, fraction=cbar_frac, aspect=cbar_asp)
             else:
-                c_bar = plt.colorbar(img, ax=y_ax, fraction=0.98)
+                c_bar = plt.colorbar(img, ax=y_ax,
+                                     fraction=6, aspect=24)
 
             c_bar.solids.set_edgecolor("face")
             c_bar.ax.tick_params(labelsize='smaller')
-
             c_bar.ax.yaxis.set_ticks_position('left')
 
     def get_track_height(self, frame_width, *args):

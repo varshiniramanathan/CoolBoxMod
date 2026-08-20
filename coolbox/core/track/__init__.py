@@ -11,7 +11,7 @@ from .arcs import ArcsBase, Pairs, BEDPE, HiCPeaks, Arcs
 
 __all__ = [
     "Track", "BAM", "GTF", "Ideogram", "Spacer", "HLine",
-    "XAxis", "ChromName", "BedBase", "BED", "TAD", "HicMatBase",
+    "XAxis", "ChromName", "BedBase", "BED","TAD", "HicMatBase",
     "Cool", "DotHiC", "HiCDiff", "Selfish", "HiCMat", "HistBase",
     "BedGraph", "BigWig", "ABCompartment", "DiScore", "InsuScore",
     "Virtual4C", "BAMCov", "SNP", "Hist", "ArcsBase", "Pairs", "BEDPE", "HiCPeaks", "Arcs",

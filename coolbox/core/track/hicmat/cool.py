@@ -23,7 +23,9 @@ class Cool(HicMatBase):
         'cmap': "JuiceBoxLike",
         'balance': True,
         "norm": "no",
-        "transform": "log"
+        "transform": "log",
+        "cbar_fraction":0.98,
+        "cbar_aspect":20
     }
 
     def __init__(self, file, **kwargs):

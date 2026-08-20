@@ -62,3 +62,6 @@ class BED(BedBase, PlotGenes):
         ov_intervals: pd.DataFrame = self.fetch_plot_data(gr, **kwargs)
         self.plot_genes(ax, gr, ov_intervals)
         self.plot_label()
+
+
+
