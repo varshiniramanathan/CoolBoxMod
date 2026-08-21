@@ -25,7 +25,8 @@ class Cool(HicMatBase):
         "norm": "no",
         "transform": "log",
         "cbar_fraction":0.98,
-        "cbar_aspect":20
+        "cbar_aspect":20,
+        "tick_spacing_bp":None
     }
 
     def __init__(self, file, **kwargs):

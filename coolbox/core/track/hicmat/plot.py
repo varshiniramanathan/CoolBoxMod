@@ -42,7 +42,7 @@ class PlotHiCMat(object):
 
         import numpy as np
 
-        def format_ticks(ax, x=True, y=False, rotate=True, chrom=None, dist_val=100_000):
+        def format_ticks(ax, dist_val=None, x=True, y=False, rotate=True, chrom=None):
             bp_formatter = EngFormatter('b')
             if y:
                 ax.yaxis.set_major_formatter(bp_formatter)
@@ -139,8 +139,10 @@ class PlotHiCMat(object):
             img = ax.matshow(arr, cmap=cmap,
                              extent=(gr.start, gr.end, gr2.end, gr2.start),
                              aspect=aspect)
+
+            dist_val = self.properties["tick_spacing_bp"]
             self.ax.axis[:].set_visible(True)
-            format_ticks(self.ax, rotate=False, chrom=gr.chrom)
+            format_ticks(self.ax, dist_val=dist_val, rotate=False, chrom=gr.chrom)
             self.ax.axis[:].major_ticklabels.set()
             
         if self.norm == 'log':
