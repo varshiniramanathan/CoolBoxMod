@@ -38,6 +38,7 @@ class BigWig(HistBase):
         super().__init__(**properties)
         self.ds = ox.from_bigwig(self.properties['file'])
 
+    ## VR note: why is this written like this? positions being mean of start and end doesn't make sense?
     def fetch_plot_data(self, gr: GenomeRange, **kwargs):
         intervals = self.fetch_data(gr, **kwargs)
         starts = intervals['start'].values
@@ -46,6 +47,7 @@ class BigWig(HistBase):
         values = intervals['value'].values
         return positions, values
 
+    ## VR addition
     def fetch_data(self, gr: GenomeRange, **kwargs):
         """
         Parameters
@@ -94,18 +96,18 @@ def bin_genomic_data(
     if agg not in ("mean", "sum"):
         raise ValueError("agg must be 'mean' or 'sum'")
 
-    chrom = df[chrom_col].iloc[0]
+    chrom = df["chrom"].iloc[0]
 
-    genome_start = df[start_col].min()
-    genome_end = df[end_col].max()
+    genome_start = df["start"].min()
+    genome_end = df["end"].max()
 
     bin_edges = np.linspace(genome_start, genome_end, n_bins + 1)
     bin_starts = bin_edges[:-1]
     bin_ends = bin_edges[1:]
 
-    starts = df[start_col].to_numpy()
-    ends = df[end_col].to_numpy()
-    values = df[value_col].to_numpy()
+    starts = df["start"].to_numpy()
+    ends = df["end"].to_numpy()
+    values = df["value"].to_numpy()
 
     out_values = np.empty(n_bins)
 
