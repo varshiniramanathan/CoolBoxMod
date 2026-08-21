@@ -20,13 +20,14 @@ class Cool(HicMatBase):
     """
 
     DEFAULT_PROPERTIES = {
-        'cmap': "JuiceBoxLike",
-        'balance': True,
+        "cmap": "JuiceBoxLike",
+        "balance": True,
         "norm": "no",
         "transform": "log",
-        "cbar_fraction":0.98,
-        "cbar_aspect":20,
-        "tick_spacing_bp":None
+        "cbar_fraction": 0.98,
+        "cbar_aspect": 20,
+        "plot_axis": True,
+        "tick_spacing_bp": None
     }
 
     def __init__(self, file, **kwargs):

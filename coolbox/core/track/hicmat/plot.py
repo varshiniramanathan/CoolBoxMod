@@ -140,10 +140,11 @@ class PlotHiCMat(object):
                              extent=(gr.start, gr.end, gr2.end, gr2.start),
                              aspect=aspect)
 
-            dist_val = self.properties["tick_spacing_bp"]
-            self.ax.axis[:].set_visible(True)
-            format_ticks(self.ax, dist_val=dist_val, rotate=False, chrom=gr.chrom)
-            self.ax.axis[:].major_ticklabels.set()
+            if self.plot_axis:
+                print("plotting axis")
+                self.ax.axis[:].set_visible(True)
+                format_ticks(self.ax, dist_val=self.tick_spacing_bp, rotate=False, chrom=gr.chrom)
+                self.ax.axis[:].major_ticklabels.set()
             
         if self.norm == 'log':
             img.set_norm(colors.LogNorm(vmin=c_min, vmax=c_max))
@@ -211,8 +212,8 @@ class PlotHiCMat(object):
                 upper_ = abs_inc(int(np.log10(c_max)))
                 tick_values = np.concatenate([aa * 10 ** x for x in range(lower_, upper_)])
 
-                cbar_frac = self.properties['cbar_fraction']
-                cbar_asp = self.properties['cbar_aspect']
+                cbar_frac = self.cbar_fraction
+                cbar_asp = self.cbar_aspect
                 c_bar = plt.colorbar(img, ticks=tick_values, ax=y_ax, fraction=cbar_frac, aspect=cbar_asp)
             else:
                 c_bar = plt.colorbar(img, ax=y_ax,
@@ -316,3 +317,19 @@ class PlotHiCMat(object):
     @property
     def norm(self):
         return self.properties['norm']
+
+    @property
+    def cbar_aspect(self):
+        return self.properties["cbar_aspect"]
+
+    @property
+    def cbar_fraction(self):
+        return self.properties["cbar_fraction"]
+
+    @property
+    def tick_spacing_bp(self):
+        return self.properties["tick_spacing_bp"]
+
+    @property
+    def plot_axis(self):
+        return self.properties["plot_axis"]
