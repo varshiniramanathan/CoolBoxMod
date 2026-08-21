@@ -182,6 +182,9 @@ class PlotHiCMat(object):
                 self.plot_colorbar(img, orientation='horizontal')
 
     def plot_colorbar(self, img, orientation='vertical'):
+        cbar_frac = self.cbar_fraction
+        cbar_asp = self.cbar_aspect
+
         if orientation == 'horizontal':
             ax_divider = make_axes_locatable(self.ax)
             if self.is_inverted:
@@ -210,13 +213,9 @@ class PlotHiCMat(object):
                 lower_ = int(np.log10(c_min))
                 upper_ = abs_inc(int(np.log10(c_max)))
                 tick_values = np.concatenate([aa * 10 ** x for x in range(lower_, upper_)])
-
-                cbar_frac = self.cbar_fraction
-                cbar_asp = self.cbar_aspect
                 c_bar = plt.colorbar(img, ticks=tick_values, ax=y_ax, fraction=cbar_frac, aspect=cbar_asp)
             else:
-                c_bar = plt.colorbar(img, ax=y_ax,
-                                     fraction=6, aspect=24)
+                c_bar = plt.colorbar(img, ax=y_ax, fraction=cbar_frac, aspect=cbar_asp)
 
             c_bar.solids.set_edgecolor("face")
             c_bar.ax.tick_params(labelsize='smaller')
