@@ -71,15 +71,15 @@ Flexible, user-friendly genomic data visualization toolkit. Modified to match Ha
 See demo/ for a demo notebook that demonstrates the modifications.
 For installation, git clone this repo and install packages from the requirements.txt, then install coolbox:
 
-`# create environment; python 3.12 is needed`
-`python3.12 -m venv coolbox-mod`
-`pip install -r requirements.txt`
+`# create environment; python 3.12 is needed`\
+`python3.12 -m venv coolbox-mod`\
+`pip install -r requirements.txt`\
 `pip install /path/to/coolbox # installs coolbox`
 
 From there, you can access the environment in a Jupyter notebook as follows:
 
-`source coolbox-mod/bin/activate`
-`python -m ipykernel install --user --name==coolbox_kernel`
+`source coolbox-mod/bin/activate`\
+`python -m ipykernel install --user --name==coolbox_kernel`\
 
 Then, you will be able to see the `coolbox_kernel` when you open Jupyter notebook.
 
