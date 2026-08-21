@@ -40,7 +40,9 @@ class PlotHiCMat(object):
     def plot_matrix(self, gr: GenomeRange, gr2: GenomeRange = None):
         gr = GenomeRange(gr)
 
-        def format_ticks(ax, x=True, y=False, rotate=True, chrom=None):
+        import numpy as np
+
+        def format_ticks(ax, x=True, y=False, rotate=True, chrom=None, dist_val=100_000):
             bp_formatter = EngFormatter('b')
             if y:
                 ax.yaxis.set_major_formatter(bp_formatter)
@@ -48,7 +50,14 @@ class PlotHiCMat(object):
                 ax.set_yticks([])
             if x:
                 xmin, xmax = ax.get_xlim()
-                ticks = ax.get_xticks()
+
+                if dist_val is not None:
+                    # make the ticks round numbers (does mpl do this automatically?)
+                    start = np.ceil(xmin / dist_val) * dist_val
+                    ticks = np.arange(start, xmax + dist_val, dist_val)
+                    ax.set_xticks(ticks)
+                else:
+                    ticks = ax.get_xticks()
 
                 # find first tick that is actually inside the visible range
                 visible_ticks = [t for t in ticks if xmin <= t <= xmax]
@@ -63,10 +72,10 @@ class PlotHiCMat(object):
                 ax.xaxis.tick_bottom()
                 if chrom is not None:
                     ax.text(
-                    0, -0.01, chrom,
-                    transform=ax.transAxes,
-                    ha='left',
-                    va='top')
+                        0, -0.01, chrom,
+                        transform=ax.transAxes,
+                        ha='left',
+                        va='top')
 
         def get_cmap(color: str):
             cm = color
