@@ -141,7 +141,6 @@ class PlotHiCMat(object):
                              aspect=aspect)
 
             if self.plot_axis:
-                print("plotting axis")
                 self.ax.axis[:].set_visible(True)
                 format_ticks(self.ax, dist_val=self.tick_spacing_bp, rotate=False, chrom=gr.chrom)
                 self.ax.axis[:].major_ticklabels.set()
