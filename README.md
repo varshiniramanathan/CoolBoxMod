@@ -73,13 +73,14 @@ For installation, git clone this repo and install packages from the requirements
 
 `# create environment; python 3.12 is needed`\
 `python3.12 -m venv coolbox-mod`\
+`source coolbox-mod/bin/activate`\
 `pip install -r requirements.txt`\
 `pip install /path/to/coolbox # installs coolbox`
 
 From there, you can access the environment in a Jupyter notebook as follows:
 
 `source coolbox-mod/bin/activate`\
-`python -m ipykernel install --user --name==coolbox_kernel`\
+`python -m ipykernel install --user --name==coolbox_kernel`
 
 Then, you will be able to see the `coolbox_kernel` when you open Jupyter notebook.
 
