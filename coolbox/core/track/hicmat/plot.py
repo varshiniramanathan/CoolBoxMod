@@ -330,4 +330,7 @@ class PlotHiCMat(object):
 
     @property
     def plot_axis(self):
-        return self.properties["plot_axis"]
+        if self.properties["plot_axis"] == 'yes' or self.properties["plot_axis"] == True:
+            return True
+        else:
+            return False
