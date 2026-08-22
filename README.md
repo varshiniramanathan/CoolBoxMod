@@ -61,8 +61,7 @@
 
 </p>
 
-Flexible, user-friendly genomic data visualization toolkit. Modified to match Hansen Lab plotting aesthetics with some added convenience modifications, which are a mixture of contributions from Varshini Ramanathan, Domenic Narducci, and Miles Huseyin.
-
+Flexible, user-friendly genomic data visualization toolkit. Modified to match Hansen Lab plotting aesthetics with some added convenience modifications, which are a mixture of contributions from Varshini Ramanathan, Domenic Narducci, and Miles Huseyin:
 
 1) Auto-scaling of bigwig-type datasets, with optional sub-groups that scale together.
 2) Plotting of a different cooler on the top and bottoms diagonals (only implemented for .mcool)
@@ -70,7 +69,20 @@ Flexible, user-friendly genomic data visualization toolkit. Modified to match Ha
 4) More flexible plotting parameter settings ex. colorbar sizing and notation, tick spacing, etc.
 
 See demo/ for a demo notebook that demonstrates the modifications.
-For installation, git clone this repo and install packages from the requirements.txt, then install coolbox with pip install . 
+For installation, git clone this repo and install packages from the requirements.txt, then install coolbox:
+
+`# create environment; python 3.12 is needed`\
+`python3.12 -m venv coolbox-mod`\
+`source coolbox-mod/bin/activate`\
+`pip install -r requirements.txt`\
+`pip install /path/to/coolbox # installs coolbox`
+
+From there, you can access the environment in a Jupyter notebook as follows:
+
+`source coolbox-mod/bin/activate`\
+`python -m ipykernel install --user --name==coolbox_kernel`
+
+Then, you will be able to see the `coolbox_kernel` when you open Jupyter notebook.
 
 From below, I left the README unchanged from the original CoolBox (https://github.com/GangCaoLab/CoolBox).
 
